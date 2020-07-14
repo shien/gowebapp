@@ -1,5 +1,11 @@
 package main
 
+import (
+	"github.com/gorilla/websocket"
+	"log"
+	"net/http"
+)
+
 type room struct {
 	forward chan []byte
 	join    chan *client
@@ -20,7 +26,7 @@ func (r *room) run() {
 	for {
 		select {
 		case client := <-r.join:
-			r.clinets[client] = true
+			r.clients[client] = true
 		case client := <-r.leave:
 			delete(r.clients, client)
 			close(client.send)
