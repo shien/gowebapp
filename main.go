@@ -2,6 +2,10 @@ package main
 
 import (
 	"flag"
+	"github.com/stretchr/gomniauth"
+	"github.com/stretchr/gomniauth/providers/facebook"
+	"github.com/stretchr/gomniauth/providers/github"
+	"github.com/stretchr/gomniauth/providers/google"
 	"html/template"
 	"log"
 	"net/http"
@@ -28,8 +32,19 @@ func (t *templateHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 func main() {
 	var addr = flag.String("addr", ":8080", "Application address")
 	flag.Parse()
+
+	gomniauth.SetSecurityKey("Security Key")
+	gomniauth.WithProviders(
+		facebook.New("ClientID", "SecretKey", "http://localhost:8080/auth/callback/facebook"),
+		github.New("ClientID", "SecretKey", "http://localhost:8080/auth/callback/github"),
+		google.New("ClientID", "SecretKey", "http://localhost:8080/auth/callback/google"),
+	)
+
 	r := newRoom()
-	http.Handle("/", &templateHandler{filename: "chat.html"})
+	//r.tracer = trace.New(os.Stdout)
+	http.Handle("/chat", MustAuth(&templateHandler{filename: "chat.html"}))
+	http.Handle("/login", &templateHandler{filename: "login.html"})
+	http.HandleFunc("/auth/", loginHandler)
 	http.Handle("/room", r)
 
 	go r.run()
