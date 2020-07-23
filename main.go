@@ -33,7 +33,7 @@ func main() {
 	var addr = flag.String("addr", ":8080", "Application address")
 	flag.Parse()
 
-	gomniauth.SetSecurityKey("Security Key")
+	gomniauth.SetSecurityKey("LRbiKBVzGcRHFApcThPDHz7f77NSuEA6rr5vmpLz")
 	gomniauth.WithProviders(
 		facebook.New("ClientID", "SecretKey", "http://localhost:8080/auth/callback/facebook"),
 		github.New("ClientID", "SecretKey", "http://localhost:8080/auth/callback/github"),
