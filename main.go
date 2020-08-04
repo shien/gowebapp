@@ -6,12 +6,19 @@ import (
 	"github.com/stretchr/gomniauth/providers/facebook"
 	"github.com/stretchr/gomniauth/providers/github"
 	"github.com/stretchr/gomniauth/providers/google"
+	"github.com/stretchr/objx"
 	"html/template"
 	"log"
 	"net/http"
 	"path/filepath"
 	"sync"
 )
+
+var avatars Avatar = TryAvatars{
+	UseAuthAvatar,
+	UseFileSystemAvatar,
+	UseGravatar,
+}
 
 type templateHandler struct {
 	once     sync.Once
@@ -26,7 +33,13 @@ func (t *templateHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 				t.filename)))
 
 	})
-	t.templ.Execute(w, r)
+	data := map[string]interface{}{
+		"Host": r.Host,
+	}
+	if authCookie, err := r.Cookie("auth"); err == nil {
+		data["UserData"] = objx.MustFromBase64(authCookie.Value)
+	}
+	t.templ.Execute(w, data)
 }
 
 func main() {
@@ -45,6 +58,21 @@ func main() {
 	http.Handle("/chat", MustAuth(&templateHandler{filename: "chat.html"}))
 	http.Handle("/login", &templateHandler{filename: "login.html"})
 	http.HandleFunc("/auth/", loginHandler)
+	http.Handle("/upload", &templateHandler{filename: "upload.html"})
+	http.Handle("/avatars/",
+		http.StripPrefix("/avatars/",
+			http.FileServer(http.Dir("./avatars"))))
+	http.HandleFunc("/uploader", uploaderHandler)
+	http.HandleFunc("/logout", func(w http.ResponseWriter, r *http.Request) {
+		http.SetCookie(w, &http.Cookie{
+			Name:   "auth",
+			Value:  "",
+			Path:   "/",
+			MaxAge: -1,
+		})
+		w.Header()["Location"] = []string{"/chat"}
+		w.WriteHeader(http.StatusTemporaryRedirect)
+	})
 	http.Handle("/room", r)
 
 	go r.run()
