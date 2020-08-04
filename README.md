@@ -4,6 +4,10 @@
 
 BootStrap css のバージョンだけ 4.5.0 にあげてある
 
+```
+cp -r trace/ ${GOPATH}/src/
+```
+
 main.go のsecret key Facebook / Google / GitHub のどれかを入力
 
 ```
