@@ -2,6 +2,23 @@
 
 動かしてみた
 
+## 環境
+* Lenovo Thinkpad X220
+* Intel(R) Core(TM) i5-2520M CPU @ 2.50GHz
+* Ubuntu 20.04 LTS
+* go version go1.14 linux/amd64 
+
+## 作者によるサンプルコード
+
+https://github.com/matryer/goblueprints
+
+## 環境
+
+
+
+## Chat application
+
+
 BootStrap css のバージョンだけ 4.5.0 にあげてある
 
 ```
@@ -17,3 +34,35 @@ sh buildrun.sh
 http://localhost:8080/chat
 
 にアクセスする
+
+## CLIs
+
+
+### sprinkle
+
+```
+go build -o sprinkle
+```
+
+### coolify
+
+```
+go build -o coolify
+```
+### domainify
+
+```
+go build -o domainify
+```
+
+### synonyms
+
+https://words.bighugelabs.com/
+
+でアカウントを作成し、API KEY を取得
+
+```
+export BTH_APIKEY=[API_KEY]
+cp -r thesaurus ${GOPATH}/src
+go build -o synonyms
+```

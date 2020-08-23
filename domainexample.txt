@@ -1,0 +1,9 @@
+*web
+service*
+book*
+*app
+*site
+battle*
+get*
+*go
+tweet*
