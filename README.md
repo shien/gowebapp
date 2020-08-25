@@ -66,3 +66,19 @@ export BTH_APIKEY=[API_KEY]
 cp -r thesaurus ${GOPATH}/src
 go build -o synonyms
 ```
+
+### domainfinder
+
+```
+cd domainfinder
+sh build.sh
+./domainfinder
+```
+
+## Distributed System and flexible data processing
+
+```
+docker-compose up
+go get github.com/bitly/go-nsq
+go get go.mongodb.org/mongo-driver/mongo
+```
