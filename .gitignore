@@ -1,6 +1,8 @@
 chat
 memo.txt
+twitter_env.sh
 avatars/
+db/
 *.jpg
 *.png
 sprinkle/sprinkle
@@ -10,3 +12,4 @@ synonyms/synonyms
 available/available
 domainfinder/lib/*
 domainfinder/domainfinder
+domainfinder/abc
