@@ -6,6 +6,7 @@ import (
 	"log"
 	"net"
 	"net/http"
+	"net/url"
 	"strconv"
 	"strings"
 	"sync"
@@ -50,10 +51,10 @@ var (
 
 func setupTwitterAuth() {
 	var ts struct {
-		ConsumerKey    string `env: "SP_TWITTER_KEY, required"`
-		ConsumerSecret string `env: "SP_TWITTER_SECRET, required"`
-		AccessToken    string `env: "SP_TWITTER_ACCESSTOKEN, required"`
-		AccessSecret   string `env: "SP_TWITTER_ACCESSSECRET, required"`
+		ConsumerKey    string `env:"SP_TWITTER_KEY, required"`
+		ConsumerSecret string `env:"SP_TWITTER_SECRET, required"`
+		AccessToken    string `env:"SP_TWITTER_ACCESSTOKEN, required"`
+		AccessSecret   string `env:"SP_TWITTER_ACCESSSECRET, required"`
 	}
 
 	if err := envdecode.Decode(&ts); err != nil {
@@ -78,7 +79,7 @@ var (
 	httpClient    *http.Client
 )
 
-func makeRequest(req *http.Request, params url.Value) (*http.Response, error) {
+func makeRequest(req *http.Request, params url.Values) (*http.Response, error) {
 	authSetupOnce.Do(func() {
 		setupTwitterAuth()
 		httpClient = &http.Client{

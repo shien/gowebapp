@@ -2,19 +2,27 @@ version: '3'
 services:
   nsqlookupd:
     image: nsqio/nsq
+    container_name: nsqlookupd
     ports:
       - 4170:4170
       - 4171:4171
     restart: always
-    command: /nsqlookupd
+    command: /nsqlookupd -http-address 0.0.0.0:4171 -tcp-address 0.0.0.0:4170
+    networks:
+      app_net:
+        ipv4_address: 172.20.0.10
     
   nsqd:
     image: nsqio/nsq
+    container_name: nsq
     ports:
       - 4150:4150
       - 4151:4151
     restart: always
-    command: /nsqd
+    command: /nsqd -lookupd-tcp-address 172.20.0.10:4170 --broadcast-address=172.20.0.10
+    networks:
+      app_net:
+        ipv4_address: 172.20.0.11
 
   mongo:
     image: mongo
@@ -27,3 +35,14 @@ services:
     volumes:
       - ./db:/data/db
       - ./configdb:/data/configdb
+    networks:
+      app_net:
+        ipv4_address: 172.20.0.12
+
+networks:
+  app_net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.20.0.0/16

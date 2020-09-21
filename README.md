@@ -83,4 +83,5 @@ go get github.com/bitly/go-nsq
 go get go.mongodb.org/mongo-driver/mongo
 go get github.com/joeshaw/envdecode
 go get github.com/gomodule/oauth1/oauth
+go get "go.mongodb.org/mongo-driver/bson"
 ```
