@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>調査項目のリスト</title>
+        <link rel="stylesheet" href="http://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div class="container">
+            <div class="card">
+                <div class="card-header">
+                    調査項目のリスト
+                </div>
+                <ul class="list-group list-group-flush" id="polls"> </ul>
+                <a class="btn btn-primary" href="new.html">新規作成</a>
+            </div>
+        </div>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js">
+        </script>
+        <script rel="stylesheet" href="http://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js">
+        </script>
+        <script>
+            $(function() {
+                var update = function() {
+                    $.get("http://localhost:8080/polls/?key=abc123", null, null, "json")
+                    .done(function(polls) {
+                        $("#polls").empty();
+                        for (var p in polls) {
+                            var poll = polls[p];
+                            $("#polls").append(
+                                $("<li>").append(
+                                    $("a")
+                                    .attr("href", "view.html?poll=polls/" + poll.id)
+                                )
+                            )
+
+                        }
+                    }
+                );
+                window.setTimeout(update, 10000);
+            }
+            update();
+            });
+        </script>
+    </body>
+</html>

@@ -78,10 +78,29 @@ sh build.sh
 ## Distributed System and flexible data processing
 
 ```
-docker-compose up
 go get github.com/bitly/go-nsq
 go get go.mongodb.org/mongo-driver/mongo
 go get github.com/joeshaw/envdecode
 go get github.com/gomodule/oauth1/oauth
 go get "go.mongodb.org/mongo-driver/bson"
+docker-compose up
+go build -o twittervotes
+./twittervotes
 ```
+
+## REST形式でデータや機能を公開
+
+```
+go get github.com/stretchr/graceful
+```
+
+API サーバー は `-addr` 無指定で localhost:8080 で起動
+```
+docker-compose up
+go build -o api
+./api -mongo 172.20.0.12:27017
+```
+
+Web サーバーに関しては  jsapi が終了したみたいなので写経だけ…
+
+https://developers-jp.googleblog.com/2016/07/google-feed-api.html

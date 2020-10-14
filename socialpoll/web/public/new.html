@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>調査項目の作成</title>
+        <link rel="stylesheet" href="http://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    </head>
+    <body>
+         <div class="container">
+            <div class="card">
+                <div class="card-header">
+                    調査項目の作成
+                </div>
+                <form id="title">
+                    <div class="form-group">
+                        <label for="title">タイトル</label>
+                        <input class="form-control" id="title" placeholder="Title">
+                    </div>
+                </form>
+                <form id="options">
+                    <div class="form-group">
+                        <label for="options">選択肢</label>
+                        <input class="form-control" id="options" placeholder="Options">
+                    </div>
+                </form>
+                <button class="btn btn-primary mb-2" type="submit">送信</button>
+                または <a href="/">キャンセル</a>
+            </div>
+        </div>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js">
+        </script>
+        <script rel="stylesheet" href="http://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js">
+        </script>
+        <script>
+            $(function() {
+                var form = $("form#poll");
+                form.submit(function(e) {
+                    a.preventDefault();
+                    var title = form.find("input[id='title']").val();
+                    var options = form.find("input[id='options']").val();
+                    options = options.split(",");
+                    for (var opt in options) {
+                        options[opt] = options[opt].trim();
+                    }
+                    $.post("http://localhost:8080/polls/?key=abc123",
+                        JSON.stringify({
+                            title: title, options: options
+                        })
+                    ).done(function(d, s, r){
+                        locatoin.href = "view.html?poll=" + r.getResponseHeader("Location");
+                    });
+                });
+
+            });
+        </script>
+    </body>
+</html>

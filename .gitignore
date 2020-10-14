@@ -1,4 +1,4 @@
-chat
+chat/chat
 memo.txt
 twitter_env.sh
 avatars/
@@ -15,3 +15,4 @@ domainfinder/domainfinder
 domainfinder/abc
 socialpoll/counter/counter
 socialpoll/twittervotes/twittervotes
+.vscode/
