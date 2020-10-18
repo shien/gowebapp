@@ -104,3 +104,8 @@ go build -o api
 Web サーバーに関しては  jsapi が終了したみたいなので写経だけ…
 
 https://developers-jp.googleblog.com/2016/07/google-feed-api.html
+
+## おすすめ
+
+JSON Deocder で panic してしまうときの対処
+https://github.com/matryer/goblueprints/issues/71
