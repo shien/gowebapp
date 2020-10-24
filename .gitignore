@@ -16,3 +16,10 @@ domainfinder/abc
 socialpoll/counter/counter
 socialpoll/twittervotes/twittervotes
 .vscode/
+backup/cmds/backup/backupdata
+backup/cmds/backup/backup
+backup/cmds/backup/test*
+backup/cmds/backupd/backupd
+backup/cmds/backupd/archive/**/*
+backup/cmds/backupd/test*/**/*
+meander/cmd/meanderapi

@@ -104,3 +104,10 @@ go build -o api
 Web サーバーに関しては  jsapi が終了したみたいなので写経だけ…
 
 https://developers-jp.googleblog.com/2016/07/google-feed-api.html
+
+## ランダムなおすすめを提示する Web サービス
+
+```
+cp -rf meander ${GOPATH}/src
+go get github.com/matryer/filedb
+```
