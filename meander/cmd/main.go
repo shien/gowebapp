@@ -11,7 +11,7 @@ import (
 
 func main() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
-	meander.APIKey = "AIzaSyBl_fzUNX9PoW1HxuqZk-LrmA8-sCEnxPU"
+	meander.APIKey = ""
 	http.HandleFunc("/journeys", cors(func(w http.ResponseWriter, r *http.Request) {
 		respond(w, r, meander.Journeys)
 	}))
