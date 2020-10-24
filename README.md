@@ -111,3 +111,7 @@ https://developers-jp.googleblog.com/2016/07/google-feed-api.html
 cp -rf meander ${GOPATH}/src
 go get github.com/matryer/filedb
 ```
+## おすすめ
+
+JSON Deocder で panic してしまうときの対処
+https://github.com/matryer/goblueprints/issues/71
